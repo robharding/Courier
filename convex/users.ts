@@ -51,7 +51,7 @@ export const createOrganizationMembership = internalMutation({
     organizationId: v.string(),
   },
   async handler(ctx, args) {
-    const user = await getUser(ctx, args.tokenIdentifier);
+    const user = await getLoggedInUser(ctx);
     if (!user) throw new ConvexError("User not found");
 
     await ctx.db.patch(user._id, {
