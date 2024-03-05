@@ -3,6 +3,9 @@ import { mutation, query } from "./_generated/server";
 import { getLoggedInUser, getUser, isUserInOrg } from "./users";
 
 export const generateUploadUrl = mutation(async (ctx) => {
+  const user = await getLoggedInUser(ctx);
+  if (!user) throw new ConvexError("User not found");
+
   return await ctx.storage.generateUploadUrl();
 });
 
