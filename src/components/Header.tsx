@@ -16,7 +16,7 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = ({}) => {
   return (
-    <div className="border-b h-14 bg-gray-50">
+    <div className="border-b h-16 bg-gray-50">
       <div className="container flex h-full items-center justify-between">
         <div className="flex gap-2 items-center">
           <span className="group h-8 w-8 flex items-center justify-center bg-primary rounded">
