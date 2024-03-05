@@ -19,17 +19,6 @@ export default function Home() {
 
   return (
     <main>
-      <SignedIn>
-        <SignOutButton>
-          <Button>Sign Out</Button>
-        </SignOutButton>
-      </SignedIn>
-      <SignedOut>
-        <SignInButton mode="modal">
-          <Button>Sign In</Button>
-        </SignInButton>
-      </SignedOut>
-
       <Button
         onClick={() =>
           createFile({ name: "Hello, world." }).catch((error) => {
