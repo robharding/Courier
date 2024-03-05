@@ -19,7 +19,9 @@ const Header: FC<HeaderProps> = ({}) => {
     <div className="border-b h-14 bg-gray-50">
       <div className="container flex h-full items-center justify-between">
         <div className="flex gap-2 items-center">
-          <Package className="h-6 w-6" />
+          <span className="group h-8 w-8 flex items-center justify-center bg-primary rounded">
+            <Package className="h-6 w-6 fill-white stroke-primary/80" />
+          </span>
           <h1 className="text-xl font-medium">Courier</h1>
         </div>
         <SignedIn>
