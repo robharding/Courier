@@ -3,9 +3,10 @@ import { mutation, query } from "./_generated/server";
 import { getLoggedInUser, getUser, isUserInOrg } from "./users";
 
 export const generateUploadUrl = mutation(async (ctx) => {
-  const user = await getLoggedInUser(ctx);
-  if (!user) throw new ConvexError("User not found");
-
+  const identity = await ctx.auth.getUserIdentity();
+  if (!identity) {
+    throw new ConvexError("You must be logged in to generate an upload url");
+  }
   return await ctx.storage.generateUploadUrl();
 });
 
