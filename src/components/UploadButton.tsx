@@ -74,7 +74,9 @@ const UploadDropzone: FC<UploadButtonProps> = ({ setIsOpen }) => {
             clearInterval(progressInterval);
             setUploadProgress(100);
             setIsError(true);
-            return toast.error("Something went wrong.");
+            return toast.error("Something went wrong", {
+              description: "Your file failed to upload.",
+            });
           }
 
           clearInterval(progressInterval);
