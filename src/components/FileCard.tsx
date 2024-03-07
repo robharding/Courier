@@ -8,28 +8,16 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Doc } from "../../convex/_generated/dataModel";
-import { Button } from "./ui/button";
-import { Trash } from "lucide-react";
-import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import FileCardMenu from "./FileCardMenu";
 
 interface FileCardProps {
   file: Doc<"files">;
 }
 
 const FileCard: FC<FileCardProps> = ({ file }) => {
-  const deleteFile = useMutation(api.files.deleteFile);
-
   return (
     <Card className="relative p-2">
-      <Button
-        size="sm"
-        variant="ghost"
-        className="absolute top-1 right-1"
-        onClick={() => deleteFile({ fileId: file._id })}
-      >
-        <Trash className="w-4 h-4" />
-      </Button>
+      <FileCardMenu file={file} />
       <CardHeader>
         <CardTitle className="">
           <h3 className="truncate">{file.name}</h3>
