@@ -65,7 +65,7 @@ export default function Home() {
         )
       ) : (
         <div className="flex items-center justify-center">
-          <Loader2 className="mt-12 w-8 h-8 animate-spin" />
+          <Loader2 className="mt-24 w-8 h-8 animate-spin" />
         </div>
       )}
     </main>

@@ -64,12 +64,15 @@ export const getFiles = query({
   },
   async handler(ctx, args) {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) return [];
+    if (!identity) return undefined;
+    console.log(1);
 
     const user = await getUser(ctx, identity.tokenIdentifier);
-    if (!user) return [];
+    if (!user) return undefined;
+    console.log(2);
 
-    if (!isUserInOrg(user, args.orgId)) return [];
+    if (!isUserInOrg(user, args.orgId)) return undefined;
+    console.log(3);
 
     const files = ctx.db
       .query("files")
