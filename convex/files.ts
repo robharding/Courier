@@ -48,7 +48,7 @@ export const deleteFile = mutation({
     const file = await ctx.db.get(fileId);
     if (!file) throw new ConvexError("File not found");
 
-    if (user.orgIds.includes(file.orgId)) {
+    if (isUserInOrg(user, file.orgId)) {
       await ctx.db.delete(fileId);
     } else {
       throw new ConvexError("You don't have permission to delete this file");
