@@ -19,9 +19,7 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
     <Card className="relative p-2">
       <FileCardMenu file={file} />
       <CardHeader>
-        <CardTitle className="">
-          <h3 className="truncate">{file.name}</h3>
-        </CardTitle>
+        <CardTitle className="truncate">{file.name}</CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>

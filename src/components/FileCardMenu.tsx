@@ -29,17 +29,19 @@ interface FileCardMenuProps {
 
 interface DeleteFileAlertDialogProps {
   isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
   fileId: Id<"files">;
 }
 
 const DeleteFileAlertDialog: FC<DeleteFileAlertDialogProps> = ({
   isOpen,
   fileId,
+  setIsOpen,
 }) => {
   const deleteFile = useMutation(api.files.deleteFile);
 
   return (
-    <AlertDialog open={isOpen}>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -64,7 +66,7 @@ const FileCardMenu: FC<FileCardMenuProps> = ({ file }) => {
 
   return (
     <DropdownMenu dir="rtl">
-      <DropdownMenuTrigger className="absolute top-1 right-1">
+      <DropdownMenuTrigger className="absolute top-1 right-1" asChild>
         <Button variant="ghost" size="sm">
           <Menu className="w-4 h-4" />
         </Button>
@@ -82,7 +84,11 @@ const FileCardMenu: FC<FileCardMenuProps> = ({ file }) => {
         </DropdownMenuItem>
       </DropdownMenuContent>
 
-      <DeleteFileAlertDialog isOpen={isOpen} fileId={file._id} />
+      <DeleteFileAlertDialog
+        isOpen={isOpen}
+        setIsOpen={(isOpen) => setIsOpen(isOpen)}
+        fileId={file._id}
+      />
     </DropdownMenu>
   );
 };
