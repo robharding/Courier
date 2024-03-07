@@ -11,6 +11,7 @@ import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { Doc } from "../../convex/_generated/dataModel";
 
 interface UploadDropzoneProps {
   setIsOpen: (open: boolean) => void;
@@ -57,6 +58,35 @@ const UploadDropzone: FC<UploadDropzoneProps> = ({ setIsOpen }) => {
           setIsUploading(true);
           const progressInterval = startSimulatedProgress();
 
+          clearInterval(progressInterval);
+          setUploadProgress(100);
+
+          // Step 3: Save the newly allocated storage id to the database
+          console.log(acceptedFile[0].type);
+
+          const types = {
+            "image/png": "image",
+            "image/jpeg": "image",
+            "image/gif": "image",
+            "image/svg+xml": "image",
+            "image/webp": "image",
+            "application/pdf": "document",
+            "application/msword": "document",
+            "video/mp4": "video",
+            "video/quicktime": "video",
+            "video/x-msvideo": "video",
+            "video/x-ms-wmv": "video",
+          } as Record<string, Doc<"files">["type"]>;
+
+          if (!types[acceptedFile[0].type]) {
+            clearInterval(progressInterval);
+            setUploadProgress(100);
+            setIsError(true);
+            return toast.error("File type not supported", {
+              description: "Your file type is not supported.",
+            });
+          }
+
           // Step 1: Get a short-lived upload URL
           const postUrl = await generateUploadUrl();
 
@@ -79,12 +109,9 @@ const UploadDropzone: FC<UploadDropzoneProps> = ({ setIsOpen }) => {
             });
           }
 
-          clearInterval(progressInterval);
-          setUploadProgress(100);
-
-          // Step 3: Save the newly allocated storage id to the database
           await sendFile({
             orgId,
+            type: types[acceptedFile[0].type],
             userId: user.id,
             name: acceptedFile[0].name,
             storageId,

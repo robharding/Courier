@@ -1,6 +1,7 @@
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getLoggedInUser, getUser, isUserInOrg } from "./users";
+import { fileTypes } from "./schema";
 
 export const generateUploadUrl = mutation(async (ctx) => {
   const identity = await ctx.auth.getUserIdentity();
@@ -13,11 +14,12 @@ export const generateUploadUrl = mutation(async (ctx) => {
 export const createFile = mutation({
   args: {
     name: v.string(),
+    type: fileTypes,
     orgId: v.string(),
     storageId: v.id("_storage"),
     userId: v.string(),
   },
-  async handler(ctx, { name, orgId, storageId, userId }) {
+  async handler(ctx, { name, type, orgId, storageId, userId }) {
     const user = await getLoggedInUser(ctx);
     if (!user) throw new ConvexError("User not found");
 
@@ -29,6 +31,7 @@ export const createFile = mutation({
 
     const file = await ctx.db.insert("files", {
       name,
+      type,
       orgId,
       storageId,
       userId,
@@ -65,14 +68,11 @@ export const getFiles = query({
   async handler(ctx, args) {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return undefined;
-    console.log(1);
 
     const user = await getUser(ctx, identity.tokenIdentifier);
     if (!user) return undefined;
-    console.log(2);
 
     if (!isUserInOrg(user, args.orgId)) return undefined;
-    console.log(3);
 
     const files = ctx.db
       .query("files")
