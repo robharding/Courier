@@ -23,7 +23,12 @@ const EmptyFiles = () => (
         Its pretty quiet around here.
       </h3>
       <p className="text-gray-500">
-        <UploadButton>Upload a file</UploadButton> to get started.
+        <UploadButton>
+          <span className="text-gray-600 hover:text-gray-700 hover:underline cursor-pointer">
+            Upload a file
+          </span>
+        </UploadButton>{" "}
+        to get started.
       </p>
     </div>
   </div>

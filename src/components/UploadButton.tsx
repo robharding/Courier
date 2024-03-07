@@ -179,11 +179,7 @@ const UploadButton: FC<UploadButtonProps> = ({ children }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger onClick={() => setIsOpen(true)} asChild>
-        {children ? (
-          <span className="hover:underline cursor-pointer">{children}</span>
-        ) : (
-          <Button>Upload File</Button>
-        )}
+        {children ? children : <Button>Upload File</Button>}
       </DialogTrigger>
 
       <DialogContent>
