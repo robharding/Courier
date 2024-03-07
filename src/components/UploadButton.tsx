@@ -12,11 +12,11 @@ import { api } from "../../convex/_generated/api";
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 
-interface UploadButtonProps {
+interface UploadDropzoneProps {
   setIsOpen: (open: boolean) => void;
 }
 
-const UploadDropzone: FC<UploadButtonProps> = ({ setIsOpen }) => {
+const UploadDropzone: FC<UploadDropzoneProps> = ({ setIsOpen }) => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -169,13 +169,21 @@ const UploadDropzone: FC<UploadButtonProps> = ({ setIsOpen }) => {
   );
 };
 
-const UploadButton: FC = ({}) => {
+interface UploadButtonProps {
+  children?: React.ReactNode;
+}
+
+const UploadButton: FC<UploadButtonProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger onClick={() => setIsOpen(true)} asChild>
-        <Button>Upload File</Button>
+        {children ? (
+          <span className="hover:underline cursor-pointer">{children}</span>
+        ) : (
+          <Button>Upload File</Button>
+        )}
       </DialogTrigger>
 
       <DialogContent>
