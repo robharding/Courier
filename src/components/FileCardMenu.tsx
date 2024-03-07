@@ -22,6 +22,7 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { Doc, Id } from "../../convex/_generated/dataModel";
+import { toast } from "sonner";
 
 interface FileCardMenuProps {
   file: Doc<"files">;
@@ -52,7 +53,13 @@ const DeleteFileAlertDialog: FC<DeleteFileAlertDialogProps> = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteFile({ fileId })}>
+          <AlertDialogAction
+            onClick={() =>
+              deleteFile({ fileId }).then(() =>
+                toast.success("File successfuly deleted")
+              )
+            }
+          >
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>
