@@ -37,6 +37,27 @@ export const createFile = mutation({
   },
 });
 
+export const deleteFile = mutation({
+  args: {
+    fileId: v.id("files"),
+  },
+  async handler(ctx, { fileId }) {
+    const user = await getLoggedInUser(ctx);
+    if (!user) throw new ConvexError("User not found");
+
+    const file = await ctx.db.get(fileId);
+    if (!file) throw new ConvexError("File not found");
+
+    if (user.orgIds.includes(file.orgId)) {
+      await ctx.db.delete(fileId);
+    } else {
+      throw new ConvexError("You don't have permission to delete this file");
+    }
+
+    return true;
+  },
+});
+
 export const getFiles = query({
   args: {
     orgId: v.string(),
