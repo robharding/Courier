@@ -56,7 +56,7 @@ const DeleteFileAlertDialog: FC<DeleteFileAlertDialogProps> = ({
           <AlertDialogAction
             onClick={() =>
               deleteFile({ fileId }).then(() =>
-                toast.success("File successfuly deleted")
+                toast("File successfuly deleted")
               )
             }
           >
