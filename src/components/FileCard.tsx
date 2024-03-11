@@ -9,7 +9,8 @@ import {
 } from "./ui/card";
 import { Doc } from "../../convex/_generated/dataModel";
 import FileCardMenu from "./FileCardMenu";
-import { FileTextIcon, ImageIcon, VideoIcon } from "lucide-react";
+import { Download, FileTextIcon, ImageIcon, VideoIcon } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface FileCardProps {
   file: Doc<"files">;
@@ -26,17 +27,17 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
     <Card className="relative p-2">
       <FileCardMenu file={file} />
       <CardHeader>
-        <CardTitle className="flex flex-row items-center gap-2 truncate py-2">
+        <CardTitle className="flex flex-row items-center gap-2 truncate py-2 mt-2">
           <div className="flex-shrink-0 h-full flex">{FileIcon[file.type]}</div>
           {file.name}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <p></p>
+      <CardContent className="">
+        <Button size="sm">
+          <Download className="h-4 w-4 mr-2" />
+          Download
+        </Button>
       </CardContent>
-      <CardFooter>
-        <p>card footer</p>
-      </CardFooter>
     </Card>
   );
 };
