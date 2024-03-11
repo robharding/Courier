@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ const FileIcon = {
   image: <ImageIcon className="h-6 w-6" />,
   document: <FileTextIcon className="h-6 w-6" />,
   video: <VideoIcon className="h-6 w-6" />,
-} as const;
+} as Record<Doc<"files">["type"], ReactNode>;
 
 const FileCard: FC<FileCardProps> = ({ file }) => {
   return (
