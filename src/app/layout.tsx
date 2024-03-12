@@ -4,6 +4,7 @@ import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { Toaster } from "sonner";
 import Header from "@/components/Header";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html
+      lang="en"
+      className={cn("text-slate-900 antialiased light", inter.className)}
+    >
+      <body className="min-h-screen bg-zinc-50">
         <ConvexClientProvider>
           <Header />
           {children}
