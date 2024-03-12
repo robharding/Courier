@@ -49,7 +49,7 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
         <CardContent className="flex flex-row gap-2 items-center justify-between">
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   size="sm"
                   variant="secondary"
