@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import FilePreview from "./FilePreview";
+import { getFileUrl } from "../../convex/files";
 
 interface FileCardProps {
   file: Doc<"files">;
@@ -65,7 +66,10 @@ const FileCard: FC<FileCardProps> = ({ file }) => {
             </Tooltip>
           </TooltipProvider>
 
-          <Button size="sm">
+          <Button
+            size="sm"
+            onClick={() => window.open(getFileUrl(file.storageId), "_blank")}
+          >
             <Download className="h-4 w-4 mr-2" />
             Download
           </Button>

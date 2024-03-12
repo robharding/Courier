@@ -7,11 +7,8 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { Doc, Id } from "../../convex/_generated/dataModel";
+import { getFileUrl } from "../../convex/files";
 import Image from "next/image";
-
-const getFileUrl = (fileId: Id<"_storage">): string => {
-  return `${process.env.NEXT_PUBLIC_CONVEX_URL!}/api/storage/${fileId}`;
-};
 
 interface FilePreviewProps {
   file: Doc<"files">;

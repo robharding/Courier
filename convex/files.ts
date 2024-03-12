@@ -2,6 +2,11 @@ import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getLoggedInUser, getUser, isUserInOrg } from "./users";
 import { fileTypes } from "./schema";
+import { Id } from "./_generated/dataModel";
+
+export const getFileUrl = (fileId: Id<"_storage">): string => {
+  return `${process.env.NEXT_PUBLIC_CONVEX_URL!}/api/storage/${fileId}`;
+};
 
 export const generateUploadUrl = mutation(async (ctx) => {
   const identity = await ctx.auth.getUserIdentity();
